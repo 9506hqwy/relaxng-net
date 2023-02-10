@@ -4,7 +4,7 @@ internal class SchemaContext
 {
     private readonly Dictionary<FileInfo, IPattern[]> patterns;
 
-    public SchemaContext()
+    internal SchemaContext()
     {
         this.patterns = new Dictionary<FileInfo, IPattern[]>();
     }
