@@ -34,7 +34,7 @@ public class Attribute : Pattern, IHasName
     {
         if (this.TryGetNameAttr(out var attr))
         {
-            var elem = RngElement.Create(attr.Position, Schema.RelaxNgNs, "name", attr.Value, attr.Parent);
+            var elem = RngElement.Create(attr.Position, Schema.RelaxNgNs, "name", this.Self.Depth + 1, attr.Value, attr.Parent);
             return this.ToNameBase(elem);
         }
         else

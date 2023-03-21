@@ -10,6 +10,8 @@ public abstract class Node : INode
 
     public abstract IEnumerable<INode> ChildNodes { get; }
 
+    public int Depth => this.Self.Depth;
+
     public IEnumerable<INode> DescendantNodes => this.GetDescendant();
 
     public IEnumerable<INode> DescendantNodesAndSelf => this.GetDescendantAndSelf();

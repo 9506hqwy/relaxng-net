@@ -12,11 +12,13 @@ internal class RngElement
         RngPosition position,
         string ns,
         string name,
+        int depth,
         RngElement? parent)
     {
         this.Position = position;
         this.NamespaceUri = ns;
         this.Name = name;
+        this.Depth = depth;
         this.attributes = new List<RngAttribute>();
         this.children = new List<RngElement>();
         this.values = new List<string>();
@@ -26,6 +28,8 @@ internal class RngElement
     internal RngAttribute[] Attributes => this.attributes.ToArray();
 
     internal RngElement[] Children => this.children.ToArray();
+
+    internal int Depth { get; }
 
     internal string Name { get; }
 
@@ -52,10 +56,10 @@ internal class RngElement
             position,
             reader.NamespaceURI,
             reader.Name,
+            reader.Depth,
             parent);
 
-        var curDepth = reader.Depth;
-        var childDepth = curDepth + 1;
+        var childDepth = element.Depth + 1;
 
         if (reader.HasAttributes)
         {
@@ -71,7 +75,7 @@ internal class RngElement
         {
             skipRead = false;
 
-            if (reader.Depth == curDepth && reader.NodeType == XmlNodeType.EndElement)
+            if (reader.Depth == element.Depth && reader.NodeType == XmlNodeType.EndElement)
             {
                 break;
             }
@@ -151,10 +155,11 @@ internal class RngElement
         RngPosition position,
         string ns,
         string name,
+        int depth,
         string value,
         RngElement? parent)
     {
-        var element = new RngElement(position, ns, name, parent);
+        var element = new RngElement(position, ns, name, depth, parent);
         element.values.Add(value);
         return element;
     }
