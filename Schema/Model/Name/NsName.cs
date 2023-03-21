@@ -2,8 +2,8 @@
 
 public class NsName : NameBase
 {
-    private NsName(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private NsName(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class NsName : NameBase
 
     public ExceptName? ExceptName => this.Self.Elements().Select(this.ToExceptName).FirstOrDefault();
 
-    internal static NsName Parse(XElement element, RngFile file, SchemaContext context)
+    internal static NsName Parse(RngElement element, SchemaContext context)
     {
-        return new NsName(element, file, context);
+        return new NsName(element, context);
     }
 }

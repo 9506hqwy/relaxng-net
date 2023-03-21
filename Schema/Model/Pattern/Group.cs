@@ -2,8 +2,8 @@
 
 public class Group : Pattern, IHasChildren
 {
-    private Group(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Group(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Group : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static Group Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Group Parse(RngElement element, SchemaContext context)
     {
-        return new Group(element, file, context);
+        return new Group(element, context);
     }
 }

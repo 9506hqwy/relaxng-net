@@ -2,8 +2,8 @@
 
 public class Value : Pattern
 {
-    private Value(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Value(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,10 +11,10 @@ public class Value : Pattern
 
     public string? Type => this.Self.Attribute("type")?.Value;
 
-    public string Val => this.Self.Value;
+    public string Val => this.Self.Values.Single();
 
-    internal static Value Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Value Parse(RngElement element, SchemaContext context)
     {
-        return new Value(element, file, context);
+        return new Value(element, context);
     }
 }

@@ -2,39 +2,39 @@
 
 public abstract class Pattern : Node, IPattern
 {
-    internal Pattern(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    internal Pattern(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
-    internal static IPattern ConvertFrom(XElement element, RngFile file, SchemaContext context)
+    internal static IPattern ConvertFrom(RngElement element, SchemaContext context)
     {
-        if (element.Name.NamespaceName != Schema.RelaxNgNs)
+        if (element.NamespaceUri != Schema.RelaxNgNs)
         {
-            return Unknown.Parse(element, file, context);
+            return Unknown.Parse(element, context);
         }
 
-        return element.Name.LocalName switch
+        return element.Name switch
         {
-            "attribute" => Attribute.Parse(element, file, context),
-            "choice" => Choice.Parse(element, file, context),
-            "data" => Data.Parse(element, file, context),
-            "element" => Element.Parse(element, file, context),
-            "empty" => Empty.Parse(element, file, context),
-            "externalRef" => ExternalRef.Parse(element, file, context),
-            "grammar" => Grammar.Parse(element, file, context),
-            "group" => Group.Parse(element, file, context),
-            "interleave" => Interleave.Parse(element, file, context),
-            "list" => List.Parse(element, file, context),
-            "mixed" => Mixed.Parse(element, file, context),
-            "notAllowed" => NotAllowed.Parse(element, file, context),
-            "oneOrMore" => OneOrMore.Parse(element, file, context),
-            "optional" => Optional.Parse(element, file, context),
-            "parentRef" => ParentRef.Parse(element, file, context),
-            "ref" => Ref.Parse(element, file, context),
-            "text" => Text.Parse(element, file, context),
-            "value" => Value.Parse(element, file, context),
-            "zeroOrMore" => ZeroOrMore.Parse(element, file, context),
+            "attribute" => Attribute.Parse(element, context),
+            "choice" => Choice.Parse(element, context),
+            "data" => Data.Parse(element, context),
+            "element" => Element.Parse(element, context),
+            "empty" => Empty.Parse(element, context),
+            "externalRef" => ExternalRef.Parse(element, context),
+            "grammar" => Grammar.Parse(element, context),
+            "group" => Group.Parse(element, context),
+            "interleave" => Interleave.Parse(element, context),
+            "list" => List.Parse(element, context),
+            "mixed" => Mixed.Parse(element, context),
+            "notAllowed" => NotAllowed.Parse(element, context),
+            "oneOrMore" => OneOrMore.Parse(element, context),
+            "optional" => Optional.Parse(element, context),
+            "parentRef" => ParentRef.Parse(element, context),
+            "ref" => Ref.Parse(element, context),
+            "text" => Text.Parse(element, context),
+            "value" => Value.Parse(element, context),
+            "zeroOrMore" => ZeroOrMore.Parse(element, context),
             _ => throw new NotSupportedException($"Not supported element `{element.Name}`"),
         };
     }

@@ -33,11 +33,9 @@ public class RngFile
             return;
         }
 
-        using var stream = this.file.OpenRead();
+        var roots = this.GetRoots();
 
-        var root = XDocument.Load(stream);
-
-        var pattens = root.Elements().Select(e => Pattern.ConvertFrom(e, this, context)).ToArray();
+        var pattens = roots.Select(e => Pattern.ConvertFrom(e, context)).ToArray();
 
         context.Add(this.file, pattens);
     }
@@ -100,5 +98,23 @@ public class RngFile
         }
 
         return define;
+    }
+
+    private IEnumerable<RngElement> GetRoots()
+    {
+        using var reader = new RngReader(this);
+
+        while (!reader.EOF)
+        {
+            while (reader.NodeType != XmlNodeType.Element)
+            {
+                if (!reader.Read())
+                {
+                    yield break;
+                }
+            }
+
+            yield return RngElement.Create(reader, null);
+        }
     }
 }

@@ -2,8 +2,8 @@
 
 public class AnyName : NameBase
 {
-    private AnyName(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private AnyName(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class AnyName : NameBase
 
     public ExceptName? ExceptName => this.Self.Elements().Select(this.ToExceptName).FirstOrDefault();
 
-    internal static AnyName Parse(XElement element, RngFile file, SchemaContext context)
+    internal static AnyName Parse(RngElement element, SchemaContext context)
     {
-        return new AnyName(element, file, context);
+        return new AnyName(element, context);
     }
 }

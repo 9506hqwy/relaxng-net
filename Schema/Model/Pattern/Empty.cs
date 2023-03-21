@@ -2,15 +2,15 @@
 
 public class Empty : Pattern
 {
-    private Empty(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Empty(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
     public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
 
-    internal static Empty Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Empty Parse(RngElement element, SchemaContext context)
     {
-        return new Empty(element, file, context);
+        return new Empty(element, context);
     }
 }

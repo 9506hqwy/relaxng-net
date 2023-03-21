@@ -2,8 +2,8 @@
 
 public class GrammarContent : Node
 {
-    private GrammarContent(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private GrammarContent(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,24 +11,24 @@ public class GrammarContent : Node
 
     public INode Inner => this.GetInner();
 
-    internal static GrammarContent Parse(XElement element, RngFile file, SchemaContext context)
+    internal static GrammarContent Parse(RngElement element, SchemaContext context)
     {
-        return new GrammarContent(element, file, context);
+        return new GrammarContent(element, context);
     }
 
     private INode GetInner()
     {
-        if (this.Self.Name.NamespaceName != Schema.RelaxNgNs)
+        if (this.Self.NamespaceUri != Schema.RelaxNgNs)
         {
-            return Unknown.Parse(this.Self, this.File, this.Context);
+            return Unknown.Parse(this.Self, this.Context);
         }
 
-        return this.Self.Name.LocalName switch
+        return this.Self.Name switch
         {
-            "define" => Define.Parse(this.Self, this.File, this.Context),
-            "div" => Div<GrammarContent>.Parse(this.Self, this.File, this.Context, GrammarContent.Parse),
-            "include" => Include.Parse(this.Self, this.File, this.Context),
-            "start" => Start.Parse(this.Self, this.File, this.Context),
+            "define" => Define.Parse(this.Self, this.Context),
+            "div" => Div<GrammarContent>.Parse(this.Self, this.Context, GrammarContent.Parse),
+            "include" => Include.Parse(this.Self, this.Context),
+            "start" => Start.Parse(this.Self, this.Context),
             _ => throw new NotSupportedException($"Not supported element `{this.Self.Name}`"),
         };
     }

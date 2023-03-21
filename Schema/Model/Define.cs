@@ -2,8 +2,8 @@
 
 public class Define : Node, IHasChildren
 {
-    private Define(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Define(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -15,8 +15,8 @@ public class Define : Node, IHasChildren
 
     public string Name => this.Self.Attribute("name").Value;
 
-    internal static Define Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Define Parse(RngElement element, SchemaContext context)
     {
-        return new Define(element, file, context);
+        return new Define(element, context);
     }
 }

@@ -4,8 +4,8 @@ public class Param : Node
 {
     internal const string TagName = "param";
 
-    private Param(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Param(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -13,10 +13,10 @@ public class Param : Node
 
     public string Name => this.Self.Attribute("name").Value;
 
-    public string Val => this.Self.Value;
+    public string Val => this.Self.Values.Single();
 
-    internal static Param Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Param Parse(RngElement element, SchemaContext context)
     {
-        return new Param(element, file, context);
+        return new Param(element, context);
     }
 }

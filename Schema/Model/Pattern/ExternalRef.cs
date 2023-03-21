@@ -2,8 +2,8 @@
 
 public class ExternalRef : Pattern
 {
-    private ExternalRef(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private ExternalRef(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class ExternalRef : Pattern
 
     public string Href => this.Self.Attribute("href").Value;
 
-    internal static ExternalRef Parse(XElement element, RngFile file, SchemaContext context)
+    internal static ExternalRef Parse(RngElement element, SchemaContext context)
     {
-        return new ExternalRef(element, file, context);
+        return new ExternalRef(element, context);
     }
 }

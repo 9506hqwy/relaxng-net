@@ -2,8 +2,8 @@
 
 public class Grammar : Pattern
 {
-    private Grammar(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Grammar(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Grammar : Pattern
 
     public GrammarContent[] Contents => this.Self.Elements().Select(this.ToGrammarContent).ToArray();
 
-    internal static Grammar Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Grammar Parse(RngElement element, SchemaContext context)
     {
-        return new Grammar(element, file, context);
+        return new Grammar(element, context);
     }
 }

@@ -2,8 +2,8 @@
 
 public class IncludeContent : Node
 {
-    private IncludeContent(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private IncludeContent(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,23 +11,23 @@ public class IncludeContent : Node
 
     public INode Inner => this.GetInner();
 
-    internal static IncludeContent Parse(XElement element, RngFile file, SchemaContext context)
+    internal static IncludeContent Parse(RngElement element, SchemaContext context)
     {
-        return new IncludeContent(element, file, context);
+        return new IncludeContent(element, context);
     }
 
     private INode GetInner()
     {
-        if (this.Self.Name.NamespaceName != Schema.RelaxNgNs)
+        if (this.Self.NamespaceUri != Schema.RelaxNgNs)
         {
-            return Unknown.Parse(this.Self, this.File, this.Context);
+            return Unknown.Parse(this.Self, this.Context);
         }
 
-        return this.Self.Name.LocalName switch
+        return this.Self.Name switch
         {
-            "define" => Define.Parse(this.Self, this.File, this.Context),
-            "div" => Div<IncludeContent>.Parse(this.Self, this.File, this.Context, IncludeContent.Parse),
-            "start" => Start.Parse(this.Self, this.File, this.Context),
+            "define" => Define.Parse(this.Self, this.Context),
+            "div" => Div<IncludeContent>.Parse(this.Self, this.Context, IncludeContent.Parse),
+            "start" => Start.Parse(this.Self, this.Context),
             _ => throw new NotSupportedException($"Not supported element `{this.Self.Name}`"),
         };
     }

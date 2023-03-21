@@ -2,15 +2,15 @@
 
 public class Unknown : Node, INameBase, IPattern
 {
-    private Unknown(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Unknown(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
     public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
 
-    internal static Unknown Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Unknown Parse(RngElement element, SchemaContext context)
     {
-        return new Unknown(element, file, context);
+        return new Unknown(element, context);
     }
 }

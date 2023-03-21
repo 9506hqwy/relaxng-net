@@ -2,8 +2,8 @@
 
 public class List : Pattern, IHasChildren
 {
-    private List(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private List(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class List : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static List Parse(XElement element, RngFile file, SchemaContext context)
+    internal static List Parse(RngElement element, SchemaContext context)
     {
-        return new List(element, file, context);
+        return new List(element, context);
     }
 }

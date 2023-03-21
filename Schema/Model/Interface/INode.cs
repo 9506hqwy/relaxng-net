@@ -8,5 +8,5 @@ public interface INode
 
     IEnumerable<INode> DescendantNodesAndSelf { get; }
 
-    RngFile File { get; }
+    RngPosition Position { get; }
 }

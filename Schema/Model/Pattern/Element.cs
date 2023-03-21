@@ -2,8 +2,8 @@
 
 public class Element : Pattern, IHasChildren, IHasName
 {
-    private Element(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Element(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -15,9 +15,9 @@ public class Element : Pattern, IHasChildren, IHasName
 
     public string? Namespace => this.FindNamespace();
 
-    internal static Element Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Element Parse(RngElement element, SchemaContext context)
     {
-        return new Element(element, file, context);
+        return new Element(element, context);
     }
 
     private IPattern[] GetChildren()
@@ -36,7 +36,7 @@ public class Element : Pattern, IHasChildren, IHasName
     {
         if (this.TryGetNameAttr(out var attr))
         {
-            var elem = XElement.Parse($"<name xmlns=\"{Schema.RelaxNgNs}\">{attr.Value}</name>");
+            var elem = RngElement.Create(attr.Position, Schema.RelaxNgNs, "name", attr.Value, attr.Parent);
             return this.ToNameBase(elem);
         }
         else
@@ -50,7 +50,7 @@ public class Element : Pattern, IHasChildren, IHasName
         return this.FindNamespace(this.Self);
     }
 
-    private string? FindNamespace(XElement element)
+    private string? FindNamespace(RngElement element)
     {
         var item = element;
 
@@ -62,14 +62,14 @@ public class Element : Pattern, IHasChildren, IHasName
                 return ns.Value;
             }
 
-            item = item.Ancestors(XName.Get("element", Schema.RelaxNgNs)).FirstOrDefault();
+            item = item.Ancestors(Schema.RelaxNgNs, "element");
         }
         while (item is not null);
 
         return null;
     }
 
-    private bool TryGetNameAttr(out XAttribute attr)
+    private bool TryGetNameAttr(out RngAttribute attr)
     {
         attr = this.Self.Attribute("name");
         return attr is not null;

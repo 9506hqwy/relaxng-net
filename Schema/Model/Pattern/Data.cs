@@ -2,28 +2,28 @@
 
 public class Data : Pattern
 {
-    internal Data(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    internal Data(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
     public override IEnumerable<INode> ChildNodes => this.GetChildNodes();
 
     public ExceptPattern? ExceptPattern => this.Self.Elements()
-        .SkipWhile(e => e.Name.LocalName == Param.TagName)
+        .SkipWhile(e => e.Name == Param.TagName)
         .Select(this.ToExceptPattern)
         .FirstOrDefault();
 
     public Param[] Parameters => this.Self.Elements()
-        .TakeWhile(e => e.Name.LocalName == Param.TagName)
+        .TakeWhile(e => e.Name == Param.TagName)
         .Select(this.ToParam)
         .ToArray();
 
     public string Type => this.Self.Attribute("type").Value;
 
-    internal static Data Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Data Parse(RngElement element, SchemaContext context)
     {
-        return new Data(element, file, context);
+        return new Data(element, context);
     }
 
     private IEnumerable<INode> GetChildNodes()

@@ -2,15 +2,15 @@
 
 public class Text : Pattern
 {
-    private Text(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Text(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
     public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
 
-    internal static Text Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Text Parse(RngElement element, SchemaContext context)
     {
-        return new Text(element, file, context);
+        return new Text(element, context);
     }
 }

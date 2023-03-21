@@ -2,8 +2,8 @@
 
 public class Ref : Pattern
 {
-    private Ref(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Ref(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -16,8 +16,8 @@ public class Ref : Pattern
         return start.Resolve(this.Context, this.Name);
     }
 
-    internal static Ref Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Ref Parse(RngElement element, SchemaContext context)
     {
-        return new Ref(element, file, context);
+        return new Ref(element, context);
     }
 }

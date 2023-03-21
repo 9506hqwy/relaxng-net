@@ -2,24 +2,24 @@
 
 public abstract class NameBase : Node, INameBase
 {
-    internal NameBase(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    internal NameBase(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
-    internal static INameBase ConvertFrom(XElement element, RngFile file, SchemaContext context)
+    internal static INameBase ConvertFrom(RngElement element, SchemaContext context)
     {
-        if (element.Name.NamespaceName != Schema.RelaxNgNs)
+        if (element.NamespaceUri != Schema.RelaxNgNs)
         {
-            return Unknown.Parse(element, file, context);
+            return Unknown.Parse(element, context);
         }
 
-        return element.Name.LocalName switch
+        return element.Name switch
         {
-            "anyName" => AnyName.Parse(element, file, context),
-            "choice" => ChoiceName.Parse(element, file, context),
-            "name" => Name.Parse(element, file, context),
-            "nsName" => NsName.Parse(element, file, context),
+            "anyName" => AnyName.Parse(element, context),
+            "choice" => ChoiceName.Parse(element, context),
+            "name" => Name.Parse(element, context),
+            "nsName" => NsName.Parse(element, context),
             _ => throw new NotSupportedException($"Not supported element `{element.Name}`"),
         };
     }

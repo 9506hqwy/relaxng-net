@@ -2,8 +2,8 @@
 
 public class OneOrMore : Pattern, IHasChildren
 {
-    private OneOrMore(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private OneOrMore(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class OneOrMore : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static OneOrMore Parse(XElement element, RngFile file, SchemaContext context)
+    internal static OneOrMore Parse(RngElement element, SchemaContext context)
     {
-        return new OneOrMore(element, file, context);
+        return new OneOrMore(element, context);
     }
 }

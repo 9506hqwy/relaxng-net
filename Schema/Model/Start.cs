@@ -2,8 +2,8 @@
 
 public class Start : Node
 {
-    private Start(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Start(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -13,8 +13,8 @@ public class Start : Node
 
     public string? Combine => this.Self.Attribute("combine")?.Value;
 
-    internal static Start Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Start Parse(RngElement element, SchemaContext context)
     {
-        return new Start(element, file, context);
+        return new Start(element, context);
     }
 }

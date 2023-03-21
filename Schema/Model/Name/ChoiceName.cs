@@ -2,8 +2,8 @@
 
 public class ChoiceName : NameBase
 {
-    private ChoiceName(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private ChoiceName(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class ChoiceName : NameBase
 
     public INameBase[] Children => this.Self.Elements().Select(this.ToNameBase).ToArray();
 
-    internal static ChoiceName Parse(XElement element, RngFile file, SchemaContext context)
+    internal static ChoiceName Parse(RngElement element, SchemaContext context)
     {
-        return new ChoiceName(element, file, context);
+        return new ChoiceName(element, context);
     }
 }

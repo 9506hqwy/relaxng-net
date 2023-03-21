@@ -3,10 +3,10 @@
 public class Div<T> : Node
     where T : Node
 {
-    private readonly Func<XElement, RngFile, SchemaContext, T> conv;
+    private readonly Func<RngElement, SchemaContext, T> conv;
 
-    private Div(XElement element, RngFile file, SchemaContext context, Func<XElement, RngFile, SchemaContext, T> conv)
-        : base(element, file, context)
+    private Div(RngElement element, SchemaContext context, Func<RngElement, SchemaContext, T> conv)
+        : base(element, context)
     {
         this.conv = conv;
     }
@@ -15,13 +15,13 @@ public class Div<T> : Node
 
     public T[] Children => this.Self.Elements().Select(this.ConvertFrom).ToArray();
 
-    internal static Div<T> Parse(XElement element, RngFile file, SchemaContext context, Func<XElement, RngFile, SchemaContext, T> conv)
+    internal static Div<T> Parse(RngElement element, SchemaContext context, Func<RngElement, SchemaContext, T> conv)
     {
-        return new Div<T>(element, file, context, conv);
+        return new Div<T>(element, context, conv);
     }
 
-    private T ConvertFrom(XElement element)
+    private T ConvertFrom(RngElement element)
     {
-        return this.conv(element, this.File, this.Context);
+        return this.conv(element, this.Context);
     }
 }

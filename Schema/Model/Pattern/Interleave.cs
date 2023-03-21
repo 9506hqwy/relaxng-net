@@ -2,8 +2,8 @@
 
 public class Interleave : Pattern, IHasChildren
 {
-    private Interleave(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Interleave(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Interleave : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static Interleave Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Interleave Parse(RngElement element, SchemaContext context)
     {
-        return new Interleave(element, file, context);
+        return new Interleave(element, context);
     }
 }

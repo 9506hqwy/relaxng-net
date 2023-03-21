@@ -2,10 +2,9 @@
 
 public abstract class Node : INode
 {
-    internal Node(XElement element, RngFile file, SchemaContext context)
+    internal Node(RngElement element, SchemaContext context)
     {
         this.Self = element;
-        this.File = file;
         this.Context = context;
     }
 
@@ -15,11 +14,11 @@ public abstract class Node : INode
 
     public IEnumerable<INode> DescendantNodesAndSelf => this.GetDescendantAndSelf();
 
-    public RngFile File { get; }
+    public RngPosition Position => this.Self.Position;
 
     internal SchemaContext Context { get; }
 
-    internal XElement Self { get; }
+    internal RngElement Self { get; }
 
     public override sealed string ToString()
     {
@@ -31,39 +30,39 @@ public abstract class Node : INode
         return node is null ? Array.Empty<INode>() : new[] { node };
     }
 
-    internal ExceptName ToExceptName(XElement element)
+    internal ExceptName ToExceptName(RngElement element)
     {
-        return ExceptName.Parse(element, this.File, this.Context);
+        return ExceptName.Parse(element, this.Context);
     }
 
-    internal ExceptPattern ToExceptPattern(XElement element)
+    internal ExceptPattern ToExceptPattern(RngElement element)
     {
-        return ExceptPattern.Parse(element, this.File, this.Context);
+        return ExceptPattern.Parse(element, this.Context);
     }
 
-    internal GrammarContent ToGrammarContent(XElement element)
+    internal GrammarContent ToGrammarContent(RngElement element)
     {
-        return GrammarContent.Parse(element, this.File, this.Context);
+        return GrammarContent.Parse(element, this.Context);
     }
 
-    internal IncludeContent ToIncludeContent(XElement element)
+    internal IncludeContent ToIncludeContent(RngElement element)
     {
-        return IncludeContent.Parse(element, this.File, this.Context);
+        return IncludeContent.Parse(element, this.Context);
     }
 
-    internal INameBase ToNameBase(XElement element)
+    internal INameBase ToNameBase(RngElement element)
     {
-        return NameBase.ConvertFrom(element, this.File, this.Context);
+        return NameBase.ConvertFrom(element, this.Context);
     }
 
-    internal Param ToParam(XElement element)
+    internal Param ToParam(RngElement element)
     {
-        return Param.Parse(element, this.File, this.Context);
+        return Param.Parse(element, this.Context);
     }
 
-    internal IPattern ToPattern(XElement element)
+    internal IPattern ToPattern(RngElement element)
     {
-        return Pattern.ConvertFrom(element, this.File, this.Context);
+        return Pattern.ConvertFrom(element, this.Context);
     }
 
     private IEnumerable<INode> GetDescendant()

@@ -2,8 +2,8 @@
 
 public class ExceptName : Node
 {
-    private ExceptName(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private ExceptName(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class ExceptName : Node
 
     public INameBase[] Children => this.Self.Elements().Select(this.ToNameBase).ToArray();
 
-    internal static ExceptName Parse(XElement element, RngFile file, SchemaContext context)
+    internal static ExceptName Parse(RngElement element, SchemaContext context)
     {
-        return new ExceptName(element, file, context);
+        return new ExceptName(element, context);
     }
 }

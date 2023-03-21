@@ -2,8 +2,8 @@
 
 public class ParentRef : Pattern
 {
-    private ParentRef(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private ParentRef(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class ParentRef : Pattern
 
     public string Name => this.Self.Attribute("name").Value;
 
-    internal static ParentRef Parse(XElement element, RngFile file, SchemaContext context)
+    internal static ParentRef Parse(RngElement element, SchemaContext context)
     {
-        return new ParentRef(element, file, context);
+        return new ParentRef(element, context);
     }
 }

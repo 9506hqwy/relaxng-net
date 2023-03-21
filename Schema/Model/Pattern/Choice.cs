@@ -2,8 +2,8 @@
 
 public class Choice : Pattern, IHasChildren
 {
-    private Choice(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Choice(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Choice : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static Choice Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Choice Parse(RngElement element, SchemaContext context)
     {
-        return new Choice(element, file, context);
+        return new Choice(element, context);
     }
 }

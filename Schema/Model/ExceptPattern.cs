@@ -2,8 +2,8 @@
 
 public class ExceptPattern : Node, IHasChildren
 {
-    private ExceptPattern(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private ExceptPattern(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class ExceptPattern : Node, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static ExceptPattern Parse(XElement element, RngFile file, SchemaContext context)
+    internal static ExceptPattern Parse(RngElement element, SchemaContext context)
     {
-        return new ExceptPattern(element, file, context);
+        return new ExceptPattern(element, context);
     }
 }

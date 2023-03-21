@@ -2,8 +2,8 @@
 
 public class Include : Node
 {
-    private Include(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Include(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -13,8 +13,8 @@ public class Include : Node
 
     public IncludeContent[] Includes => this.Self.Elements().Select(this.ToIncludeContent).ToArray();
 
-    internal static Include Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Include Parse(RngElement element, SchemaContext context)
     {
-        return new Include(element, file, context);
+        return new Include(element, context);
     }
 }

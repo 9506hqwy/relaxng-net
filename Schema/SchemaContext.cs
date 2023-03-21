@@ -16,7 +16,7 @@ internal class SchemaContext
 
     internal IPattern[] AddByInclude(Include include)
     {
-        var file = include.File;
+        var file = include.Position.File;
 
         // TODO: Add URI support.
         var path = Path.Combine(

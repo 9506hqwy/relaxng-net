@@ -2,8 +2,8 @@
 
 public class Mixed : Pattern, IHasChildren
 {
-    private Mixed(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Mixed(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Mixed : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static Mixed Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Mixed Parse(RngElement element, SchemaContext context)
     {
-        return new Mixed(element, file, context);
+        return new Mixed(element, context);
     }
 }

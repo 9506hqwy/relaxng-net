@@ -2,8 +2,8 @@
 
 public class Optional : Pattern, IHasChildren
 {
-    private Optional(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Optional(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -11,8 +11,8 @@ public class Optional : Pattern, IHasChildren
 
     public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
 
-    internal static Optional Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Optional Parse(RngElement element, SchemaContext context)
     {
-        return new Optional(element, file, context);
+        return new Optional(element, context);
     }
 }

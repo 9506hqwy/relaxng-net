@@ -2,8 +2,8 @@
 
 public class Attribute : Pattern, IHasName
 {
-    private Attribute(XElement element, RngFile file, SchemaContext context)
-        : base(element, file, context)
+    private Attribute(RngElement element, SchemaContext context)
+        : base(element, context)
     {
     }
 
@@ -13,9 +13,9 @@ public class Attribute : Pattern, IHasName
 
     public INameBase Name => this.GetName();
 
-    internal static Attribute Parse(XElement element, RngFile file, SchemaContext context)
+    internal static Attribute Parse(RngElement element, SchemaContext context)
     {
-        return new Attribute(element, file, context);
+        return new Attribute(element, context);
     }
 
     private IPattern? GetChild()
@@ -34,7 +34,7 @@ public class Attribute : Pattern, IHasName
     {
         if (this.TryGetNameAttr(out var attr))
         {
-            var elem = XElement.Parse($"<name xmlns=\"{Schema.RelaxNgNs}\">{attr.Value}</name>");
+            var elem = RngElement.Create(attr.Position, Schema.RelaxNgNs, "name", attr.Value, attr.Parent);
             return this.ToNameBase(elem);
         }
         else
@@ -43,7 +43,7 @@ public class Attribute : Pattern, IHasName
         }
     }
 
-    private bool TryGetNameAttr(out XAttribute attr)
+    private bool TryGetNameAttr(out RngAttribute attr)
     {
         attr = this.Self.Attribute("name");
         return attr is not null;
