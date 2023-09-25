@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches: [ main ]
-    tags-ignore: [ '*' ]
+    tags-ignore: [ '**' ]
 
 jobs:
   build:
@@ -11,6 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: dotnet build
+    - uses: actions/checkout@v4
+
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build Debug
+      run: dotnet build --no-restore
+
+    - name: Check Format
+      run: dotnet format --no-restore --verify-no-changes
+
+    - name: Build Release
+      run: dotnet build --no-restore -c Release
+
+    - name: Create Artifacts
+      run: dotnet pack --no-build -c Release -o ./artifacts
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifacts-${{ runner.os }}-${{ runner.arch }}-${{ github.run_number }}
+        path: artifacts/
+        retention-days: 1

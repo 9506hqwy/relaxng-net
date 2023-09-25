@@ -1,0 +1,5 @@
+{
+    "coverage-gutters.showLineCoverage": true,
+    "dotnet.defaultSolution": "relaxng-net.sln",
+    "editor.codeLens": false
+}

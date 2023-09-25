@@ -1,16 +1,24 @@
 root = true
 
 [*]
+charset = utf-8
 end_of_line = lf
-indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.sln]
+end_of_line = crlf
+indent_size = 4
+indent_style = tab
 
 [*.csproj]
 indent_size = 2
+indent_style = space
 
 [*.cs]
 charset = utf-8-bom
-insert_final_newline = true
 indent_size = 4
+indent_style = space
 
 # .Net Compiler rule
 dotnet_diagnostic.CS1591.severity = silent
