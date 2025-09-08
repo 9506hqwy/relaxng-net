@@ -7,7 +7,7 @@ public class Unknown : Node, INameBase, IPattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     internal static Unknown Parse(RngElement element, SchemaContext context)
     {

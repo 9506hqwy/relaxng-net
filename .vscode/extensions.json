@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "davidanson.vscode-markdownlint",
+        "dotnettools.vscodeintellicode-csharp",
+        "editorconfig.editorconfig",
+        "github.vscode-github-actions",
+        "ms-dotnettools.csdevkit",
+        "timonwong.shellcheck",
+        "yzhang.markdown-all-in-one"
+    ]
+}

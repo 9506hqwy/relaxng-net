@@ -7,7 +7,7 @@ public class Value : Pattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     public string? Type => this.Self.Attribute("type")?.Value;
 

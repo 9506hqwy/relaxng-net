@@ -9,7 +9,7 @@ public class Optional : Pattern, IHasChildren
 
     public override IEnumerable<INode> ChildNodes => this.Children;
 
-    public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
+    public IPattern[] Children => [.. this.Self.Elements().Select(this.ToPattern)];
 
     internal static Optional Parse(RngElement element, SchemaContext context)
     {

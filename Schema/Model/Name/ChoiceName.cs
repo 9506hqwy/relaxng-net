@@ -9,7 +9,7 @@ public class ChoiceName : NameBase
 
     public override IEnumerable<INode> ChildNodes => this.Children;
 
-    public INameBase[] Children => this.Self.Elements().Select(this.ToNameBase).ToArray();
+    public INameBase[] Children => [.. this.Self.Elements().Select(this.ToNameBase)];
 
     internal static ChoiceName Parse(RngElement element, SchemaContext context)
     {

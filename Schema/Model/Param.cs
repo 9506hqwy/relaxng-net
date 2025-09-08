@@ -9,7 +9,7 @@ public class Param : Node
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     public string Name => this.Self.Attribute("name").Value;
 

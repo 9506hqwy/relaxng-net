@@ -1,5 +1,13 @@
 {
-    "coverage-gutters.showLineCoverage": true,
     "dotnet.defaultSolution": "relaxng-net.sln",
-    "editor.codeLens": false
+    "editor.codeLens": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
+    "[markdown]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.markdownlint": "explicit"
+        },
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    }
 }

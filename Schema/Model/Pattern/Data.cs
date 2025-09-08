@@ -14,10 +14,9 @@ public class Data : Pattern
         .Select(this.ToExceptPattern)
         .FirstOrDefault();
 
-    public Param[] Parameters => this.Self.Elements()
+    public Param[] Parameters => [.. this.Self.Elements()
         .TakeWhile(e => e.Name == Param.TagName)
-        .Select(this.ToParam)
-        .ToArray();
+        .Select(this.ToParam)];
 
     public string Type => this.Self.Attribute("type").Value;
 

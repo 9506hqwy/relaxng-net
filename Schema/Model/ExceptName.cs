@@ -9,7 +9,7 @@ public class ExceptName : Node
 
     public override IEnumerable<INode> ChildNodes => this.Children;
 
-    public INameBase[] Children => this.Self.Elements().Select(this.ToNameBase).ToArray();
+    public INameBase[] Children => [.. this.Self.Elements().Select(this.ToNameBase)];
 
     internal static ExceptName Parse(RngElement element, SchemaContext context)
     {

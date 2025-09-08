@@ -9,7 +9,7 @@ public class Define : Node, IHasChildren
 
     public override IEnumerable<INode> ChildNodes => this.Children;
 
-    public IPattern[] Children => this.Self.Elements().Select(this.ToPattern).ToArray();
+    public IPattern[] Children => [.. this.Self.Elements().Select(this.ToPattern)];
 
     public string? Combine => this.Self.Attribute("combine")?.Value;
 

@@ -7,7 +7,7 @@ public class NotAllowed : Pattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     internal static NotAllowed Parse(RngElement element, SchemaContext context)
     {

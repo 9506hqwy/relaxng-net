@@ -6,7 +6,7 @@ internal class SchemaContext
 
     internal SchemaContext()
     {
-        this.patterns = new Dictionary<FileInfo, IPattern[]>();
+        this.patterns = [];
     }
 
     internal void Add(FileInfo file, IPattern[] patterns)
@@ -45,7 +45,7 @@ internal class SchemaContext
 
     internal IPattern[]? Find(FileInfo file)
     {
-        this.patterns.TryGetValue(file, out var patterns);
+        _ = this.patterns.TryGetValue(file, out var patterns);
         return patterns;
     }
 }

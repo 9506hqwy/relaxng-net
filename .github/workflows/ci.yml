@@ -4,33 +4,11 @@ on:
   push:
     branches: [ main ]
     tags-ignore: [ '**' ]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Restore Dependencies
-      run: dotnet restore
-
-    - name: Build Debug
-      run: dotnet build --no-restore
-
-    - name: Check Format
-      run: dotnet format --no-restore --verify-no-changes
-
-    - name: Build Release
-      run: dotnet build --no-restore -c Release
-
-    - name: Create Artifacts
-      run: dotnet pack --no-build -c Release -o ./artifacts
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: artifacts-${{ runner.os }}-${{ runner.arch }}-${{ github.run_number }}
-        path: artifacts/
-        retention-days: 1
+    uses: 9506hqwy/actions/.github/workflows/dotnet-ci.yml@main

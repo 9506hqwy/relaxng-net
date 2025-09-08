@@ -7,7 +7,7 @@ public class Empty : Pattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     internal static Empty Parse(RngElement element, SchemaContext context)
     {

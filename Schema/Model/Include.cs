@@ -11,7 +11,7 @@ public class Include : Node
 
     public string Href => this.Self.Attribute("href").Value;
 
-    public IncludeContent[] Includes => this.Self.Elements().Select(this.ToIncludeContent).ToArray();
+    public IncludeContent[] Includes => [.. this.Self.Elements().Select(this.ToIncludeContent)];
 
     internal static Include Parse(RngElement element, SchemaContext context)
     {

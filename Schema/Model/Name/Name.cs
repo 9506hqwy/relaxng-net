@@ -7,7 +7,7 @@ public class Name : NameBase
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     public string Val => this.Self.Values.Single();
 

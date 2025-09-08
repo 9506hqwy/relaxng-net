@@ -18,17 +18,14 @@ public class IncludeContent : Node
 
     private INode GetInner()
     {
-        if (this.Self.NamespaceUri != Schema.RelaxNgNs)
-        {
-            return Unknown.Parse(this.Self, this.Context);
-        }
-
-        return this.Self.Name switch
-        {
-            "define" => Define.Parse(this.Self, this.Context),
-            "div" => Div<IncludeContent>.Parse(this.Self, this.Context, IncludeContent.Parse),
-            "start" => Start.Parse(this.Self, this.Context),
-            _ => throw new NotSupportedException($"Not supported element `{this.Self.Name}`"),
-        };
+        return this.Self.NamespaceUri != Schema.RelaxNgNs
+            ? Unknown.Parse(this.Self, this.Context)
+            : this.Self.Name switch
+            {
+                "define" => Define.Parse(this.Self, this.Context),
+                "div" => Div<IncludeContent>.Parse(this.Self, this.Context, IncludeContent.Parse),
+                "start" => Start.Parse(this.Self, this.Context),
+                _ => throw new NotSupportedException($"Not supported element `{this.Self.Name}`"),
+            };
     }
 }

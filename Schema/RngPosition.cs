@@ -17,15 +17,10 @@ public class RngPosition
 
     public override bool Equals(object obj)
     {
-        if (obj is RngPosition other)
-        {
-            return
-                this.File.Info.FullName == other.File.Info.FullName &&
-                this.Line == other.Line &&
-                this.Column == other.Column;
-        }
-
-        return false;
+        return obj is RngPosition other
+            && this.File.Info.FullName == other.File.Info.FullName
+            && this.Line == other.Line
+            && this.Column == other.Column;
     }
 
     public override int GetHashCode()

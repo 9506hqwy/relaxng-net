@@ -20,14 +20,9 @@ public class Attribute : Pattern, IHasName
 
     private IPattern? GetChild()
     {
-        if (this.TryGetNameAttr(out var attr))
-        {
-            return this.Self.Elements().Select(this.ToPattern).FirstOrDefault();
-        }
-        else
-        {
-            return this.Self.Elements().Skip(1).Select(this.ToPattern).FirstOrDefault();
-        }
+        return this.TryGetNameAttr(out var attr)
+            ? this.Self.Elements().Select(this.ToPattern).FirstOrDefault()
+            : this.Self.Elements().Skip(1).Select(this.ToPattern).FirstOrDefault();
     }
 
     private INameBase GetName()

@@ -9,7 +9,7 @@ public class Grammar : Pattern
 
     public override IEnumerable<INode> ChildNodes => this.Contents;
 
-    public GrammarContent[] Contents => this.Self.Elements().Select(this.ToGrammarContent).ToArray();
+    public GrammarContent[] Contents => [.. this.Self.Elements().Select(this.ToGrammarContent)];
 
     internal static Grammar Parse(RngElement element, SchemaContext context)
     {

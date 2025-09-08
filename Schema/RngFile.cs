@@ -1,15 +1,8 @@
 ﻿namespace RelaxNg.Schema;
 
-public class RngFile
+public class RngFile(FileInfo file)
 {
-    private readonly FileInfo file;
-
-    public RngFile(FileInfo file)
-    {
-        this.file = file;
-    }
-
-    public FileInfo Info => this.file;
+    public FileInfo Info { get; } = file;
 
     public IPattern[]? Enumerate(Schema schema)
     {
@@ -28,7 +21,7 @@ public class RngFile
 
     internal void Parse(SchemaContext context)
     {
-        if (context.Find(this.file) is not null)
+        if (context.Find(this.Info) is not null)
         {
             return;
         }
@@ -37,12 +30,12 @@ public class RngFile
 
         var pattens = roots.Select(e => Pattern.ConvertFrom(e, context)).ToArray();
 
-        context.Add(this.file, pattens);
+        context.Add(this.Info, pattens);
     }
 
     internal Define Resolve(SchemaContext context, string name)
     {
-        var patterns = context.Find(this.file);
+        var patterns = context.Find(this.Info);
 
         if (patterns is not null)
         {
@@ -54,20 +47,14 @@ public class RngFile
             }
         }
 
-        throw new Exception($"Not found `{name}` in `{this.file.FullName}`.");
+        throw new Exception($"Not found `{name}` in `{this.Info.FullName}`.");
     }
 
     private Define? FindDefine(SchemaContext context, Include[] includes, string name)
     {
         foreach (var include in includes)
         {
-            var refPatterns = context.Find(include.Href);
-
-            if (refPatterns is null)
-            {
-                refPatterns = context.AddByInclude(include);
-            }
-
+            var refPatterns = context.Find(include.Href) ?? context.AddByInclude(include);
             var define = this.FindDefine(context, refPatterns, name);
 
             if (define is not null)

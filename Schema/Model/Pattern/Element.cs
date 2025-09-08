@@ -22,14 +22,9 @@ public class Element : Pattern, IHasChildren, IHasName
 
     private IPattern[] GetChildren()
     {
-        if (this.TryGetNameAttr(out var attr))
-        {
-            return this.Self.Elements().Select(this.ToPattern).ToArray();
-        }
-        else
-        {
-            return this.Self.Elements().Skip(1).Select(this.ToPattern).ToArray();
-        }
+        return this.TryGetNameAttr(out var attr)
+            ? [.. this.Self.Elements().Select(this.ToPattern)]
+            : [.. this.Self.Elements().Skip(1).Select(this.ToPattern)];
     }
 
     private INameBase GetName()

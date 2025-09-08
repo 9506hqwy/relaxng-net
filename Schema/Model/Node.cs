@@ -22,14 +22,14 @@ public abstract class Node : INode
 
     internal RngElement Self { get; }
 
-    public override sealed string ToString()
+    public sealed override string ToString()
     {
         return this.Self.ToString();
     }
 
     internal IEnumerable<INode> ToChildArray(INode? node)
     {
-        return node is null ? Array.Empty<INode>() : new[] { node };
+        return node is null ? Array.Empty<INode>() : [node];
     }
 
     internal ExceptName ToExceptName(RngElement element)

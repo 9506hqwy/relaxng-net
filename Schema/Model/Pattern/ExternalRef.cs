@@ -7,7 +7,7 @@ public class ExternalRef : Pattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     public string Href => this.Self.Attribute("href").Value;
 

@@ -13,7 +13,7 @@ public class Div<T> : Node
 
     public override IEnumerable<INode> ChildNodes => this.Children;
 
-    public T[] Children => this.Self.Elements().Select(this.ConvertFrom).ToArray();
+    public T[] Children => [.. this.Self.Elements().Select(this.ConvertFrom)];
 
     internal static Div<T> Parse(RngElement element, SchemaContext context, Func<RngElement, SchemaContext, T> conv)
     {

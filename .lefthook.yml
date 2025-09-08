@@ -1,0 +1,13 @@
+pre-commit:
+  jobs:
+    - name: dotnet Format
+      glob: "*.{cs,csproj}"
+      run: dotnet format --verify-no-changes
+
+    - name: dotnet Test
+      glob: "*.{cs,csproj}"
+      run: dotnet test
+
+    - name: Actions Lint
+      glob: ".github/workflows/*.yml"
+      run: actionlint

@@ -7,7 +7,7 @@ public class Text : Pattern
     {
     }
 
-    public override IEnumerable<INode> ChildNodes => Array.Empty<Node>();
+    public override IEnumerable<INode> ChildNodes => [];
 
     internal static Text Parse(RngElement element, SchemaContext context)
     {

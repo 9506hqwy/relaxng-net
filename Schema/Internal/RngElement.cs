@@ -19,15 +19,15 @@ internal class RngElement
         this.NamespaceUri = ns;
         this.Name = name;
         this.Depth = depth;
-        this.attributes = new List<RngAttribute>();
-        this.children = new List<RngElement>();
-        this.values = new List<string>();
+        this.attributes = [];
+        this.children = [];
+        this.values = [];
         this.Parent = parent;
     }
 
-    internal RngAttribute[] Attributes => this.attributes.ToArray();
+    internal RngAttribute[] Attributes => [.. this.attributes];
 
-    internal RngElement[] Children => this.children.ToArray();
+    internal RngElement[] Children => [.. this.children];
 
     internal int Depth { get; }
 
@@ -39,7 +39,7 @@ internal class RngElement
 
     internal RngPosition Position { get; }
 
-    internal string[] Values => this.values.ToArray();
+    internal string[] Values => [.. this.values];
 
     public override string ToString()
     {
@@ -105,7 +105,7 @@ internal class RngElement
                     throw new InvalidProgramException();
 
                 case XmlNodeType.Element:
-                    element.children.Add(RngElement.Create(reader, element));
+                    element.children.Add(Create(reader, element));
                     skipRead = true;
                     break;
 
@@ -166,17 +166,9 @@ internal class RngElement
 
     internal RngElement? Ancestors(string ns, string name)
     {
-        if (this.Parent is null)
-        {
-            return null;
-        }
-
-        if (this.Parent.NamespaceUri == ns && this.Parent.Name == name)
-        {
-            return this.Parent;
-        }
-
-        return this.Parent.Ancestors(ns, name);
+        return this.Parent is null
+            ? null
+            : this.Parent.NamespaceUri == ns && this.Parent.Name == name ? this.Parent : this.Parent.Ancestors(ns, name);
     }
 
     internal RngAttribute Attribute(string name)
